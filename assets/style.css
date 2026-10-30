@@ -1,0 +1,409 @@
+/* Bahasa Melayu อต.๑ — hijau pandan + emas */
+:root {
+  --paper: #F6F4EE;
+  --surface: #FFFFFF;
+  --ink: #1D2420;
+  --ink-soft: #55605A;
+  --green: #1F5D40;
+  --green-deep: #143F2B;
+  --green-soft: #E3EEE7;
+  --gold: #8A6512;
+  --gold-line: #B8860B;
+  --gold-soft: #F5EBD2;
+  --line: #DCD8CC;
+  --desk: #E7E0CF;
+  --sheet: #FFFDF7;
+  --fold: #EADBB0;
+  --ok: #1F6B3F;
+  --ok-bg: #DFF0E5;
+  --no: #9B2C2C;
+  --no-bg: #F7E3E3;
+  --radius: 10px;
+  --measure: 72ch;
+  --f-head: "Bai Jamjuree", "Sarabun", system-ui, sans-serif;
+  --f-body: "Sarabun", system-ui, sans-serif;
+  --f-jawi: "Noto Naskh Arabic", "Traditional Arabic", serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #141A17; --surface: #1C2420; --ink: #EAF0EC; --ink-soft: #B3BFB8;
+    --green: #8FD1AE; --green-deep: #BFE8D1; --green-soft: #22352B;
+    --gold: #E3C06A; --gold-line: #B8913A; --gold-soft: #3A3120; --line: #33403A;
+    --desk: #0D1310; --sheet: #19211D; --fold: #4A3F26;
+    --ok: #8FD3A6; --ok-bg: #1F3A29; --no: #F0A3A3; --no-bg: #4A2323;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #141A17; --surface: #1C2420; --ink: #EAF0EC; --ink-soft: #B3BFB8;
+  --green: #8FD1AE; --green-deep: #BFE8D1; --green-soft: #22352B;
+  --gold: #E3C06A; --gold-line: #B8913A; --gold-soft: #3A3120; --line: #33403A;
+  --desk: #0D1310; --sheet: #19211D; --fold: #4A3F26;
+  --ok: #8FD3A6; --ok-bg: #1F3A29; --no: #F0A3A3; --no-bg: #4A2323;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--desk); color: var(--ink); font: 400 1.125rem/1.7 var(--f-body); }
+a { color: var(--green); text-underline-offset: 3px; }
+h1, h2, h3, h4 { font-family: var(--f-head); line-height: 1.3; color: var(--green-deep); }
+strong { font-weight: 600; }
+.jw, [lang="ms-Arab"] { font-family: var(--f-jawi); font-size: 1.15em; line-height: 2; unicode-bidi: isolate; }
+:focus-visible { outline: 3px solid var(--gold-line); outline-offset: 2px; border-radius: 4px; }
+
+.skip { position: absolute; left: -999px; top: 0; background: var(--green); color: #fff; padding: .5rem 1rem; z-index: 10; }
+.skip:focus { left: 1rem; }
+
+/* หัวและท้ายเว็บ */
+.site-head { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; align-items: center; justify-content: space-between; padding: .75rem max(16px, calc((100% - 1100px) / 2)); background: var(--surface); border-bottom: 3px solid var(--gold-line); }
+.brand { display: flex; gap: .7rem; align-items: center; text-decoration: none; color: var(--ink); font: 600 1.1rem/1.2 var(--f-head); }
+.brand small { display: block; font: 400 .85rem var(--f-body); color: var(--ink-soft); }
+.mark { width: 34px; height: 34px; border-radius: 8px; background: var(--green) url("favicon.svg") center/cover; flex: none; }
+.site-head nav { display: flex; gap: 1.1rem; flex-wrap: wrap; }
+.site-head nav a { text-decoration: none; color: var(--ink-soft); font-weight: 600; display: flex; flex-direction: column; align-items: center; line-height: 1.2; }
+.site-head nav a small { font: 400 .8rem var(--f-body); }
+.site-head nav a:hover, .site-head nav a[aria-current] { color: var(--green); }
+/* สองภาษา: มลายูก่อน ไทยตามหลัง */
+.tr { color: var(--ink-soft); font-weight: 400; }
+.bi { display: inline-flex; flex-direction: column; vertical-align: top; line-height: 1.35; }
+.bi > .tr { font-size: .9em; margin-top: .1rem; }
+.btn .bi, .btn-ghost .bi { align-items: center; }
+.btn, .btn-ghost { border-radius: 16px; }
+.word-foot .btn-ghost { min-width: 9rem; justify-content: center; }
+th .bi > .tr { color: inherit; opacity: .85; font-size: .85em; }
+.crumb p { margin: 0; }
+.crumb p.tr { font-size: .9em; }
+.pager .bi { display: flex; }
+.pager .next .bi { align-items: flex-end; }
+.skip .tr { color: inherit; }
+.btn .tr, .btn-ghost .tr, .pager .tr { color: inherit; opacity: .85; }
+.h-th { display: block; font: 500 .62em/1.4 var(--f-body); color: var(--ink-soft); margin-top: .1rem; }
+.dw { margin: 0 0 1rem; }
+.dw p { margin: 0; }
+.dw p.tr { margin-top: .3rem; }
+.dw.lede p.tr { font-size: 1rem; }
+.guru li p { margin: 0; }
+.guru li p.tr { margin: .2rem 0 .7rem; }
+.td-th { display: block; color: var(--ink-soft); font-size: .95em; }
+.sc-th { display: block; font-size: .6em; color: var(--ink-soft); }
+main { max-width: 1100px; margin: 0 auto; padding: 1.5rem 16px 3rem; }
+/* ท้ายเว็บ: แถบมลายู (เขียวเข้ม) + แถบไทย (ทองอ่อน) */
+.site-foot { margin-top: 2rem; text-align: center; border-top: 4px solid #B8860B; }
+.site-foot p { margin: .15rem 0; }
+.site-foot .foot-ms { background: #143F2B; color: #FFFFFF; padding: 1.3rem 16px 1.1rem; }
+.site-foot .foot-ms p { font: 500 1rem/1.55 var(--f-head); color: #FFFFFF; }
+.site-foot .foot-ms p:first-child { font-weight: 600; font-size: 1.05rem; color: #F2D88B; }
+.site-foot .foot-th { background: #F5EBD2; padding: 1.1rem 16px 1.6rem; }
+.site-foot .foot-th p { font: 400 .98rem/1.6 var(--f-body); color: #4A3608; }
+.site-foot .foot-th p:first-child { font-weight: 600; color: #143F2B; }
+.site-foot .foot-th p.copy { margin-top: .6rem; font-size: .88rem; opacity: .85; }
+
+/* ปุ่ม */
+.btn, .btn-ghost { display: inline-flex; align-items: center; gap: .45rem; border-radius: 999px; padding: .55rem 1.2rem; font: 600 1rem var(--f-body); text-decoration: none; cursor: pointer; border: 2px solid var(--green); }
+.btn { background: var(--green); color: var(--paper); }
+.btn-ghost { background: transparent; color: var(--green); }
+.btn:hover { background: var(--green-deep); border-color: var(--green-deep); }
+.btn-ghost:hover { background: var(--green-soft); }
+.btn-ghost svg { width: 1.2em; height: 1.2em; }
+.actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.25rem; }
+
+/* หน้าแรก */
+.hero { display: grid; grid-template-columns: 1.4fr 1fr; gap: 2rem; align-items: center; padding: 1.5rem 0 2rem; }
+.kicker { margin: 0 0 .3rem; color: var(--gold); font: 600 .95rem var(--f-head); letter-spacing: .02em; }
+.hero h1 { font-size: clamp(2rem, 5vw, 3rem); margin: 0; }
+.ms-title { display: block; font-size: .55em; color: var(--gold); font-weight: 600; margin-top: .3rem; }
+.jw-title { font-size: 1.8rem; margin: .3rem 0 0; color: var(--green); text-align: left; }
+.lede { font-size: 1.15rem; color: var(--ink-soft); max-width: 52ch; }
+.word { margin: 0; background: var(--surface); border: 1px solid var(--line); border-top: 6px solid var(--green); border-radius: var(--radius); padding: 1.25rem 1.5rem; text-align: center; }
+.word-label { margin: 0; color: var(--ink-soft); font-size: .95rem; }
+.w-ms { font: 700 2.4rem/1.2 var(--f-head); color: var(--green-deep); margin: .6rem 0 0; overflow-wrap: anywhere; }
+.w-jw { font-size: 2rem; margin: 0; min-height: 1.5em; }
+.w-th { font-size: 1.2rem; margin: 0 0 .8rem; }
+.word-foot { display: flex; gap: .6rem; justify-content: center; flex-wrap: wrap; }
+
+.block { margin-top: 2.5rem; }
+.block h2 { font-size: 1.6rem; border-bottom: 2px solid var(--gold-line); padding-bottom: .3rem; }
+.prose { max-width: var(--measure); }
+.unit-cards { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: .9rem; }
+.unit-cards a { display: grid; grid-template-columns: auto 1fr; gap: 0 .9rem; height: 100%; padding: 1rem 1.1rem; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); text-decoration: none; color: var(--ink); transition: border-color .15s, transform .15s; }
+.unit-cards a:hover { border-color: var(--green); transform: translateY(-2px); }
+.c-num { grid-row: span 2; width: 2.4rem; height: 2.4rem; border-radius: 50%; background: var(--green); color: var(--paper); display: grid; place-items: center; font: 700 1.2rem var(--f-head); }
+.c-title { font: 600 1.1rem/1.35 var(--f-head); color: var(--green-deep); }
+.c-th { color: var(--ink-soft); font-size: 1rem; }
+.map .code { white-space: nowrap; font-weight: 600; }
+.map td:last-child { white-space: nowrap; }
+.map td:last-child a { display: inline-block; min-width: 1.6rem; text-align: center; }
+
+/* หน้าบทเรียน */
+.crumb { font-size: .95rem; color: var(--ink-soft); }
+.crumb a { color: var(--ink-soft); }
+.unit-head { margin: 1rem 0 1.25rem; }
+.unit-head h1 { font-size: clamp(1.9rem, 5vw, 2.6rem); margin: 0; }
+.th-title { font-size: 1.25rem; color: var(--ink-soft); margin: .1rem 0 .6rem; }
+.chips { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: .4rem; }
+.chips li { background: var(--gold-soft); color: var(--gold); border-radius: 999px; padding: .1rem .7rem; font-size: .9rem; font-weight: 600; cursor: help; }
+.sec { margin-top: 2.2rem; }
+.sec > h3 { font-size: 1.4rem; border-bottom: 2px solid var(--gold-line); padding-bottom: .3rem; margin-bottom: .9rem; }
+.sec h4 { font-size: 1.2rem; text-align: center; margin: .2rem 0 .6rem; }
+.hint { color: var(--ink-soft); font-size: .95rem; margin: .2rem 0 .7rem; }
+
+.box { background: var(--green-soft); border-left: 5px solid var(--green); border-radius: 0 var(--radius) var(--radius) 0; padding: .8rem 1.1rem; margin: 1rem 0; }
+.box p { margin: .25rem 0; }
+.box ul { margin: .3rem 0; padding-left: 1.3rem; }
+.box-t { font: 600 1rem var(--f-head); color: var(--green); }
+.box.note, .box.nilai { background: var(--gold-soft); border-left-color: var(--gold-line); }
+.box.note .box-t, .box.nilai .box-t { color: var(--gold); }
+.box.nilai { margin-top: 2.2rem; }
+.box.nilai .nilai-th { margin-top: .45rem; }
+
+/* ตาราง */
+.tbl { overflow-x: auto; margin: .8rem 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+table { width: 100%; border-collapse: collapse; }
+th { background: var(--green); color: var(--paper); text-align: left; font: 600 1rem var(--f-head); padding: .5rem .8rem; }
+:root[data-theme="dark"] th { color: #10261A; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) th { color: #10261A; } }
+td { padding: .45rem .8rem; border-top: 1px solid var(--line); vertical-align: middle; }
+tbody tr:nth-child(even) td { background: color-mix(in srgb, var(--green-soft) 45%, transparent); }
+td.n { width: 3rem; color: var(--ink-soft); text-align: center; }
+td.b { font-weight: 600; }
+td.big { font-size: 1.9rem; text-align: center; font-weight: 600; color: var(--green-deep); white-space: nowrap; }
+td.jw-cell { text-align: right; font-size: 1.15rem; white-space: nowrap; }
+td.jw-cell .jw { font-size: 1.3em; }
+td.big.jw-cell { text-align: center; }
+td.big.jw-cell .jw { font-size: 1.2em; }
+td.ms { font-weight: 600; white-space: nowrap; }
+td.ms > span { margin-right: .3rem; }
+
+/* ปุ่มฟังเสียง */
+.say { display: inline-grid; place-items: center; width: 2rem; height: 2rem; padding: 0; vertical-align: middle; border: 1px solid var(--line); border-radius: 50%; background: var(--surface); color: var(--green); cursor: pointer; }
+.say svg { width: 1.05rem; height: 1.05rem; }
+.say:hover, .say.on { background: var(--green); color: var(--paper); border-color: var(--green); }
+.no-voice .say, .no-voice .say-long, .no-voice #w-say { display: none; }
+.say-long { margin-top: .5rem; }
+
+/* ตารางตัวอักษร */
+.letters { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); gap: .5rem; }
+.letters.rtl { direction: rtl; }
+.tile { width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .1rem; min-height: 5.2rem; padding: .4rem .2rem; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); cursor: pointer; color: var(--green-deep); font: inherit; }
+.tile:hover, .tile.on { border-color: var(--green); background: var(--green-soft); }
+.glyph { font: 700 2rem/1.2 var(--f-head); }
+.tile.is-jw .glyph { font: 600 2.3rem/1.5 var(--f-jawi); }
+.nm { font-size: .9rem; color: var(--ink-soft); direction: ltr; }
+
+/* บทสนทนา เรื่องอ่าน ปันตุน */
+.dialog { margin: 1rem 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: .7rem 1rem; }
+.dialog figcaption { color: var(--ink-soft); font-size: .95rem; margin-bottom: .4rem; }
+.turn { display: grid; grid-template-columns: 6.5rem 1fr; gap: .8rem; padding: .3rem 0; align-items: baseline; }
+.turn + .turn { border-top: 1px dashed var(--line); }
+.who { font-weight: 600; color: var(--gold); }
+.reading { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem 1.3rem; margin: 1rem 0; }
+.reading p { text-indent: 2em; margin: .3rem 0; font-size: 1.2rem; line-height: 1.85; }
+.pantun { margin: 1rem auto; width: fit-content; max-width: 100%; font-style: italic; font-size: 1.15rem; border-left: 4px solid var(--gold-line); padding: .3rem 1rem; }
+.bul { padding-left: 1.3rem; }
+.bul li { margin: .3rem 0; }
+
+/* แบบฝึกหัด */
+.latihan { padding-left: 1.6rem; }
+.latihan > li { margin-bottom: 1.2rem; }
+.latihan > li::marker { font-weight: 700; color: var(--green); }
+.q { font-weight: 600; margin: 0 0 .3rem; }
+.items { padding-left: 1.4rem; margin: .2rem 0; list-style: decimal; }
+.items li { margin: .15rem 0; }
+.blank { display: inline-block; width: 4.5rem; border-bottom: 2px solid var(--ink-soft); margin: 0 .2rem; vertical-align: -.15em; }
+.write { height: calc(var(--n) * 2.2rem); background: repeating-linear-gradient(transparent 0 calc(2.2rem - 1px), var(--line) calc(2.2rem - 1px) 2.2rem); margin: .4rem 0; max-width: 40rem; }
+.ans { margin-top: .4rem; }
+.ans summary { display: inline-block; cursor: pointer; color: var(--green); font-weight: 600; border: 1px solid var(--green); border-radius: 999px; padding: .1rem .9rem; font-size: .95rem; list-style: none; }
+.ans summary::-webkit-details-marker { display: none; }
+.ans[open] summary { background: var(--green); color: var(--paper); }
+.ans p { background: var(--ok-bg); color: var(--ok); border-radius: var(--radius); padding: .5rem .9rem; margin: .5rem 0 0; }
+
+/* ทดสอบตนเอง */
+.quiz { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.1rem 1.2rem; }
+.qz-prog { color: var(--ink-soft); font-size: .95rem; margin: 0; }
+.qz-word { font: 700 2rem/1.3 var(--f-head); color: var(--green-deep); margin: .3rem 0; display: flex; gap: .6rem; align-items: center; flex-wrap: wrap; }
+.qz-word .jw { font-size: .85em; font-weight: 400; color: var(--ink-soft); }
+.qz-opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem; margin: .8rem 0; }
+.qz-opts button { font: inherit; text-align: left; padding: .65rem .9rem; border-radius: var(--radius); border: 1px solid var(--line); background: var(--paper); color: var(--ink); cursor: pointer; }
+.qz-opts button:hover:not(:disabled) { border-color: var(--green); }
+.qz-opts button.right { background: var(--ok-bg); border-color: var(--ok); color: var(--ok); font-weight: 600; }
+.qz-opts button.wrong { background: var(--no-bg); border-color: var(--no); color: var(--no); }
+.qz-fb { min-height: 1.7em; margin: 0 0 .5rem; font-weight: 600; }
+.qz-score { font: 700 1.6rem var(--f-head); color: var(--green); margin: .2rem 0 .8rem; }
+
+/* บัตรคำ */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: .7rem; }
+.card { perspective: 800px; height: 7.5rem; border: 0; padding: 0; background: none; cursor: pointer; font: inherit; color: inherit; }
+.card-in { position: relative; display: block; width: 100%; height: 100%; transition: transform .4s; transform-style: preserve-3d; }
+.card.flip .card-in { transform: rotateY(180deg); }
+.face { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: .5rem; border-radius: var(--radius); backface-visibility: hidden; border: 1px solid var(--line); text-align: center; }
+.face.front { background: var(--surface); font: 700 1.35rem var(--f-head); color: var(--green-deep); overflow-wrap: anywhere; }
+.face.back { background: var(--green); color: var(--paper); transform: rotateY(180deg); font-size: 1.1rem; }
+.face .jw { font-weight: 400; font-size: 1.1rem; }
+@media (prefers-reduced-motion: reduce) { .card-in { transition: none; } .unit-cards a { transition: none; } }
+
+/* ปุ่มบทก่อน/ถัดไป */
+.pager { display: flex; justify-content: space-between; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap; }
+.pager a { flex: 1 1 14rem; max-width: 22rem; padding: .8rem 1.1rem; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); text-decoration: none; font: 600 1.05rem var(--f-head); }
+.pager a:hover { border-color: var(--green); }
+.pager small { display: block; font: 400 .9rem var(--f-body); color: var(--ink-soft); }
+.pager .next { text-align: right; margin-left: auto; }
+
+/* อภิธานศัพท์ */
+.search { display: block; max-width: 30rem; }
+.search span { display: block; font-weight: 600; margin-bottom: .3rem; }
+.search input { width: 100%; font: inherit; padding: .6rem .9rem; border: 2px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--ink); }
+.search input:focus { border-color: var(--green); outline: none; }
+
+@media (max-width: 760px) {
+  body { font-size: 1.05rem; }
+  .hero { grid-template-columns: 1fr; padding-top: .5rem; }
+  .letters { grid-template-columns: repeat(min(var(--cols), 4), minmax(0, 1fr)); }
+  .turn { grid-template-columns: 1fr; gap: 0; }
+  .qz-opts { grid-template-columns: 1fr; }
+  td, th { padding: .4rem .55rem; }
+  td.big { font-size: 1.5rem; }
+}
+.dl { margin-top: .9rem; }
+.dl svg { width: 1.2em; height: 1.2em; }
+
+/* ================= รูปแบบหนังสือ ================= */
+.sheet { position: relative; max-width: 980px; margin: 1.5rem auto 2.5rem; padding: clamp(1.25rem, 4.5vw, 3.6rem) clamp(1.1rem, 5vw, 4rem) clamp(1.5rem, 4vw, 2.6rem); background: var(--sheet) linear-gradient(90deg, rgba(60,40,10,.07), transparent 34px); border-radius: 3px 6px 6px 3px;
+  box-shadow: 4px 4px 0 -1px var(--sheet), 4px 4px 0 0 var(--line), 8px 8px 0 -1px var(--sheet), 8px 8px 0 0 var(--line), 0 22px 40px -22px rgba(40,30,10,.45); }
+.running { display: flex; justify-content: space-between; gap: 1rem; margin: 0 0 1.6rem; padding-bottom: .5rem; border-bottom: 1px solid var(--line); color: var(--ink-soft); font: 500 .82rem/1.4 var(--f-head); letter-spacing: .03em; }
+.running > span:last-child { text-align: right; }
+.running .bi { align-items: flex-end; }
+.folio { margin: 2.6rem 0 0; display: flex; align-items: center; justify-content: center; gap: .8rem; color: var(--gold); font: 600 .95rem var(--f-head); }
+.folio::before, .folio::after { content: ""; width: 2.2rem; height: 1px; background: var(--gold-line); }
+.orn { display: flex; align-items: center; justify-content: center; gap: .7rem; margin: .4rem 0 1.4rem; color: var(--gold-line); }
+.orn::before, .orn::after { content: ""; height: 1px; width: min(28%, 8rem); background: currentColor; }
+.orn span { width: 10px; height: 10px; border: 2px solid currentColor; transform: rotate(45deg); }
+.sheet-title { text-align: center; font-size: clamp(1.6rem, 4vw, 2.1rem); margin: .5rem 0 0; }
+.sheet-title .h-th { font-size: .55em; }
+.sign { text-align: right; margin-top: 1.8rem; font: 600 1rem/1.5 var(--f-head); color: var(--green-deep); }
+.sign span { display: block; }
+.sign .tr { font: 400 .92rem var(--f-body); }
+
+/* หน้าเปิดบท */
+.opener { text-align: center; padding: .8rem 0 1.6rem; margin-bottom: 1.4rem; border-bottom: 2px solid var(--gold-line); }
+.op-k { margin: 0; color: var(--gold); font: 600 .95rem/1.3 var(--f-head); letter-spacing: .12em; text-transform: uppercase; }
+.op-k .bi { align-items: center; }
+.op-k .tr { letter-spacing: 0; text-transform: none; }
+.op-n { margin: .1rem 0 0; font: 700 clamp(4.5rem, 14vw, 7rem)/1 var(--f-head); color: var(--green); }
+.opener h1 { font-size: clamp(2rem, 5.5vw, 2.9rem); margin: 0; }
+.opener .th-title { margin: .2rem 0 .9rem; }
+.opener .chips { justify-content: center; }
+.opener .dl { margin-top: 1.1rem; }
+.unit-head.opener { margin-top: 0; }
+.crumb { max-width: 980px; margin: 0 auto; }
+
+/* ปก */
+.cover-wrap { display: grid; grid-template-columns: minmax(0, 440px) minmax(0, 1fr); gap: clamp(1.5rem, 5vw, 3.5rem); align-items: center; padding: 1rem 0 1.5rem; max-width: 1040px; margin: 0 auto; }
+.cover { position: relative; aspect-ratio: 1 / 1.414; border-radius: 4px 12px 12px 4px; color: #FFFFFF; overflow: hidden;
+  background: linear-gradient(90deg, rgba(0,0,0,.38) 0, rgba(0,0,0,.08) 16px, rgba(255,255,255,.10) 18px, rgba(0,0,0,0) 26px), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%23D9B45A' stroke-opacity='.30' stroke-width='1.2'%3E%3Cpath d='M32 0L64 32L32 64L0 32Z'/%3E%3Cpath d='M32 18L46 32L32 46L18 32Z'/%3E%3Cpath d='M32 26L38 32L32 38L26 32Z' fill='%23D9B45A' fill-opacity='.18'/%3E%3Cpath d='M0 0L10 10M64 0L54 10M0 64L10 54M64 64L54 54'/%3E%3C/g%3E%3C/svg%3E") 0 0/64px 64px, #143F2B;
+  box-shadow: 6px 6px 0 -2px #EFE6CF, 6px 6px 0 -1px #C9BC97, 12px 22px 40px -14px rgba(20,30,20,.55); }
+.cv-frame { position: absolute; inset: 22px 20px 22px 34px; border: 2px solid #D9B45A; outline: 1px solid rgba(217,180,90,.45); outline-offset: 5px; display: flex; flex-direction: column; justify-content: space-between; align-items: center; text-align: center; padding: 1.4rem 1rem; background: radial-gradient(ellipse at center, rgba(20,63,43,.92) 0 55%, rgba(20,63,43,.55) 80%); }
+.cv-top, .cv-author { margin: 0; font: 600 .95rem/1.45 var(--f-head); color: #F2D88B; }
+.cv-top span, .cv-author span { display: block; }
+.cv-th { font: 400 .88rem var(--f-body); color: #E3EEE7; }
+.cv-year { margin: 0 0 .4rem; display: inline-block; padding: .15rem .9rem; border: 1px solid #D9B45A; border-radius: 999px; color: #F2D88B; font: 600 .95rem var(--f-head); }
+.cover h1 { margin: .2rem 0 .3rem; color: #FFFFFF; font: 700 clamp(2rem, 7vw, 2.7rem)/1.12 var(--f-head); }
+.cv-jw { margin: 0; font: 600 clamp(1.6rem, 5.5vw, 2.1rem)/1.6 var(--f-jawi); color: #F2D88B; }
+.cv-th-title { margin: .2rem 0 0; font: 600 1.15rem var(--f-body); color: #E3EEE7; }
+.cover-side .lede p.tr { font-size: 1rem; }
+.cover-side .word { margin-top: 1.5rem; }
+
+/* มุมกระดาษสำหรับเปลี่ยนบท */
+.pager { max-width: 980px; margin: 0 auto 1rem; }
+.pager a { position: relative; background: var(--sheet); border: 1px solid var(--line); border-radius: 4px; padding: .9rem 2.6rem .9rem 1.1rem; box-shadow: 0 10px 20px -16px rgba(40,30,10,.5); transition: transform .15s; }
+.pager .prev { padding: .9rem 1.1rem .9rem 2.6rem; }
+.pager a::after { content: ""; position: absolute; bottom: -1px; width: 30px; height: 30px; transition: width .15s, height .15s; }
+.pager .next::after { right: -1px; background: linear-gradient(315deg, var(--desk) 0 50%, var(--fold) 50%); border-radius: 6px 0 4px 0; box-shadow: -2px -2px 4px rgba(40,30,10,.12); }
+.pager .prev::after { left: -1px; background: linear-gradient(45deg, var(--desk) 0 50%, var(--fold) 50%); border-radius: 0 6px 0 4px; box-shadow: 2px -2px 4px rgba(40,30,10,.12); }
+.pager a:hover { transform: translateY(-2px); }
+.pager a:hover::after { width: 40px; height: 40px; }
+.swipe-hint { display: none; text-align: center; color: var(--ink-soft); font-size: .9rem; margin: .5rem 0 0; }
+.swipe-hint .bi { align-items: center; }
+@media (pointer: coarse) { .swipe-hint { display: block; } }
+main.turn-next .sheet { animation: turnNext .22s ease-in forwards; }
+main.turn-prev .sheet { animation: turnPrev .22s ease-in forwards; }
+@keyframes turnNext { to { transform: translateX(-12%) rotateY(8deg); opacity: 0; } }
+@keyframes turnPrev { to { transform: translateX(12%) rotateY(-8deg); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { main.turn-next .sheet, main.turn-prev .sheet { animation: none; } .pager a, .pager a::after { transition: none; } }
+
+/* สารบัญ */
+.toc { list-style: none; margin: 0 auto; padding: 0; max-width: 46rem; }
+.toc li + li { border-top: 1px dotted var(--line); }
+.toc a { display: grid; grid-template-columns: 7.2rem minmax(0, auto) 1fr auto; align-items: end; gap: .2rem .8rem; padding: .7rem .2rem; text-decoration: none; color: var(--ink); }
+.toc a:hover .toc-t > :first-child, .toc a:hover .toc-t { color: var(--green); }
+.toc-k { font: 600 .85rem/1.3 var(--f-head); color: var(--gold); }
+.toc-t { font: 600 1.12rem/1.3 var(--f-head); color: var(--green-deep); }
+.toc-t small { display: block; font: 400 .92rem var(--f-body); color: var(--ink-soft); }
+.toc-dots { border-bottom: 2px dotted var(--line); margin-bottom: .45rem; min-width: 1rem; }
+.toc-pg { font: 700 1.1rem var(--f-head); color: var(--green); min-width: 2.2rem; text-align: right; }
+.toc-front a { grid-template-columns: minmax(0, auto) 1fr auto; }
+.toc-front .toc-pg { font-style: italic; color: var(--gold); font-weight: 600; }
+.toc li:nth-child(3) { border-bottom: 2px solid var(--gold-line); }
+
+@media (max-width: 760px) {
+  .cover-wrap { grid-template-columns: 1fr; }
+  .cover { max-width: 420px; width: 100%; margin: 0 auto; }
+  .toc a { grid-template-columns: minmax(0, 1fr) auto; }
+  .toc-k { grid-column: 1 / -1; }
+  .toc-dots { display: none; }
+  .running > span:first-child { display: none; }
+  .running { justify-content: center; }
+  .running .bi { align-items: center; }
+  .sheet { box-shadow: 3px 3px 0 -1px var(--sheet), 3px 3px 0 0 var(--line), 0 18px 30px -20px rgba(40,30,10,.45); }
+}
+
+/* ภาพประกอบคำศัพท์ */
+.vocab .pic-c { width: 4.6rem; text-align: center; }
+.vocab td.pic-c .pic { display: block; margin: 0 auto; width: 52px; height: 52px; }
+td.ms .pic { vertical-align: middle; margin-right: .45rem; }
+.face.front .pic { display: block; margin: 0 auto .25rem; width: 56px; height: 56px; }
+.f-ms { display: block; }
+.jw-in { display: none; }
+.card:has(.pic) { height: 10rem; }
+@media (max-width: 520px) {
+  .vocab .pic-c { width: 2.8rem; padding-left: .3rem; padding-right: .3rem; }
+  .vocab td.pic-c .pic { width: 36px; height: 36px; }
+  .vocab th.pic-c .bi > .tr { display: none; }
+  .vocab td, .vocab th { padding-left: .45rem; padding-right: .45rem; }
+  .vocab td.n { padding-right: 0; }
+  .vocab:has(.pic-c) td.n, .vocab:has(.pic-c) th:first-child { display: none; }
+  .vocab:has(.pic-c) td.ms { white-space: normal; }
+  .vocab:has(.pic-c) td.ms > span { display: block; margin: 0 0 .2rem; }
+  .vocab th.pic-c { font-size: .78rem; }
+  .vocab th .tr { white-space: nowrap; }
+  /* มือถือ: ยาวีอยู่ใต้คำรูมีในช่องเดียวกัน แทนคอลัมน์แยก */
+  .vocab td.jw-cell, .vocab th.jw-h { display: none; }
+  .vocab .jw-in { display: block; font-weight: 400; font-size: 1.1rem; margin-top: .15rem; }
+}
+.w-pic { display: block; margin: .6rem auto 0; width: 84px; height: 84px; }
+.w-pic[hidden] { display: none; }
+@media print {
+  @page { size: A4; margin: 14mm 14mm 16mm; }
+  :root { --paper: #fff; --surface: #fff; }
+  .site-head nav, .say, .say-long, .kuiz, #kad, .pager, .site-foot, .skip, .crumb, .dl, .hint, .ans { display: none !important; }
+  body { background: #fff; font-size: 11.5pt; }
+  .site-head { padding: 0 0 .4rem; }
+  main { padding: .8rem 0 0; max-width: none; }
+  .unit-head h1 { font-size: 24pt; }
+  .sec { margin-top: 1.2rem; }
+  .sec > h3, h4 { break-after: avoid; }
+  .box, tr, .tile, .dialog, .reading, .pantun, .latihan > li, .vocab tr { break-inside: avoid; }
+  .tbl { overflow: visible; }
+  .unit-cards a, .tile { transform: none; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .sheet { box-shadow: none; background: #fff; padding: 0; margin: 0; max-width: none; border-radius: 0; }
+  .running, .folio, .swipe-hint { display: none !important; }
+  .opener { padding-top: 0; }
+  .op-n { font-size: 54pt; }
+}
+@media (max-width: 480px) {
+  .site-head nav { display: grid; grid-template-columns: repeat(4, 1fr); gap: .3rem; width: 100%; }
+  .site-head nav a { font-size: .9rem; text-align: center; }
+  .site-head nav a small { font-size: .72rem; }
+}
