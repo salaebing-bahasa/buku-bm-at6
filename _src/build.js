@@ -319,7 +319,7 @@ function indexPage(words) {
   ${running(bi("Kandungan", "สารบัญ"))}
   <h2 class="sheet-title">${hBi("Kandungan", "สารบัญ")}</h2>
   ${ORN}
-  <ol class="toc">${extra}${toc}<li class="toc-front"><a href="glosari.html"><span class="toc-t"><span lang="ms">Glosari</span><small>อภิธานศัพท์</small></span><span class="toc-dots"></span><span class="toc-pg">A–Z</span></a></li></ol>
+  <ol class="toc">${extra}${toc}<li class="toc-front"><a href="glosari.html"><span class="toc-t"><span lang="ms">Glosari</span><small>อภิธานศัพท์</small></span><span class="toc-dots"></span><span class="toc-pg">A–Z</span></a></li><li class="toc-front"><a href="rujukan.html"><span class="toc-t"><span lang="ms">Rujukan</span><small>บรรณานุกรม</small></span><span class="toc-dots"></span><span class="toc-pg">—</span></a></li></ol>
   ${folio("i")}
 </article>
 
@@ -389,7 +389,8 @@ ${ejaanBox()}
 <p class="hint" id="g-count" aria-live="polite"></p>
 <div class="tbl"><table class="vocab" id="g-table"><thead><tr><th>Rumi</th><th>Jawi</th><th>${bi("Maksud", "ความหมาย")}</th><th>${bi("Pelajaran", "บทที่")}</th></tr></thead><tbody>${rows}</tbody></table></div>
 ${folio("A–Z")}
-</article>`;
+</article>
+<nav class="pager" aria-label="Halaman sebelum dan seterusnya · หน้าก่อนหน้าและถัดไป"><a class="prev" href="index.html#pelajaran"><small>${bi("← Kandungan", "สารบัญ")}</small>${bi("Kandungan", "สารบัญ")}</a><a class="next" href="rujukan.html" rel="next"><small>${bi("Seterusnya →", "ถัดไป")}</small>${bi("Rujukan", "บรรณานุกรม")}</a></nav>`;
   return { html: page({
     title: `Glosari · อภิธานศัพท์ภาษามลายู–ไทย — ${BOOK_MS} · ${BOOK_TH}`,
     desc: `Glosari bahasa Melayu–Thai: ${all.length} perkataan dalam tulisan Rumi dan Jawi beserta sebutan. อภิธานศัพท์ภาษามลายู–ไทย ${all.length} คำ อักษรรูมีและยาวี พร้อมเสียงอ่าน`,
@@ -399,11 +400,37 @@ ${folio("A–Z")}
   }), all };
 }
 
+// ---------------------------------------------------------------- รายการอ้างอิง (Rujukan · บรรณานุกรม)
+// รายการอยู่ในไฟล์ข้อมูล _src/data/ ที่ book.rujukan แต่ละรายการเขียนแบบ { lang: "ms" หรือ "th", text: "... *ชื่อหนังสือตัวเอียง* ..." }
+function rujukanPage() {
+  const link = (h) => h.replace(/https?:\/\/[^\s<]+[^\s<.,)]/g, (u) => `<a href="${u}" rel="noopener">${u}</a>`);
+  const items = (book.rujukan || []).map((r) => `<li lang="${r.lang}">${link(md1(r.text))}</li>`).join("\n");
+  const body = `
+<article class="sheet">
+${running(bi("Rujukan", "บรรณานุกรม"))}
+<header class="unit-head opener"><p class="op-k">${bi("Akhir buku", "ท้ายเล่ม")}</p><h1>Rujukan</h1><p class="th-title">บรรณานุกรม</p></header>
+${pBi("Senarai sumber yang dirujuk dalam penyediaan buku ini, disusun mengikut gaya APA edisi ketujuh.", "รายการแหล่งข้อมูลที่ใช้อ้างอิงในการเรียบเรียงหนังสือเล่มนี้ เรียงตามรูปแบบ APA ฉบับที่ 7", "prose")}
+<ul class="refs">
+${items}
+</ul>
+${folio("Rujukan")}
+</article>
+<nav class="pager" aria-label="Halaman sebelum dan seterusnya · หน้าก่อนหน้าและถัดไป"><a class="prev" href="glosari.html" rel="prev"><small>${bi("← Sebelum", "ก่อนหน้า")}</small>${bi("Glosari", "อภิธานศัพท์")}</a><a class="next" href="index.html#pelajaran"><small>${bi("Kembali →", "กลับ")}</small>${bi("Kandungan", "สารบัญ")}</a></nav>`;
+  return page({
+    title: `Rujukan · บรรณานุกรม — ${BOOK_MS} · ${BOOK_TH}`,
+    desc: `Senarai rujukan ${BOOK_MS}: kamus, tatabahasa, ejaan Jawi dan kurikulum. รายการอ้างอิง (บรรณานุกรม) ของ${BOOK_TH}`,
+    base: "", body, current: "rujukan", path: "rujukan.html",
+    ld: { "@context": "https://schema.org", "@type": "WebPage", name: `Rujukan ${BOOK_MS} · บรรณานุกรม ${BOOK_TH}`, inLanguage: ["ms", "th"], url: SITE + "rujukan.html",
+      isPartOf: { "@type": "Book", name: BOOK_MS, url: SITE } },
+  });
+}
+
 // ---------------------------------------------------------------- เขียนไฟล์
 fs.mkdirSync(path.join(ROOT, "pelajaran"), { recursive: true });
 book.units.forEach((u, i) => fs.writeFileSync(path.join(ROOT, "pelajaran", `${pad(i + 1)}.html`), unitPage(u, i)));
 const g = glosariPage();
 fs.writeFileSync(path.join(ROOT, "glosari.html"), g.html);
+fs.writeFileSync(path.join(ROOT, "rujukan.html"), rujukanPage());
 fs.writeFileSync(path.join(ROOT, "index.html"), indexPage(g.all));
 // sitemap.xml สำหรับ Google
 const today = new Date().toISOString().slice(0, 10);
